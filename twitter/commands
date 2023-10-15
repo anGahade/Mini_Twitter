@@ -1,0 +1,5 @@
+CREATE USER mini_twitter WITH ENCRYPTED PASSWORD 'Dasha0806';
+CREATE DATABASE mini_twitter_db;
+GRANT ALL PRIVILEGES ON DATABASE mini_twitter_db TO mini_twitter;
+
+ALTER DATABASE mini_twitter_db OWNER TO mini_twitter;
