@@ -4,11 +4,8 @@
 
   <h1 class="mb-4">Головна</h1>
 
-  {% if user.is_authenticated %}
-  
-  <div class="d-flex align-items-center mb-4">
-      <p class="mb-1">Привіт, <b>{{ user.username }}</b>!</p>
-  </div>
+<form class="needs-validation" novalidate action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
 
   {% for post in posts %}
   
@@ -18,11 +15,6 @@
 
   {% endfor %}
 
-  {% else %}
-
-  <p>Вы не авторизованы. <a href="{% url 'login' %}">Войти</a></p>
-
-  {% endif %}
 
 </div>
 
