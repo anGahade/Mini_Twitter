@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{Title}}</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    {% for post in posts %}
+    <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Автор: {{ post.user }}</p>
+                        <p class="card-text">Назва публікації: {{ post.title }}</p>
+                        <p class="card-text">Опис публікації: {{ post.content }}</p>
+                        <p class="card-text">Створенно: {{ post.created_at }} </p>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Comment</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">❤️</button>
+                        </div>
+                    </div>
+                </div>
+    <hr>
+    {% endfor %}
+</body>
+</html>
