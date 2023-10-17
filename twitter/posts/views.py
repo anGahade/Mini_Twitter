@@ -1,12 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+
+from posts.forms import PostForm
 from posts.models import Post
 
 
-# def index(request):
-#     posts = Post.objects.all()
-#     context = {'posts': posts, 'title': 'List of posts:'}
-#     return render(request, 'posts_t/posts_list.html', context)
 def index(request, username=None):
     if username:
         posts = Post.objects.filter(user__username=username)
@@ -19,6 +17,19 @@ def index(request, username=None):
     return render(request, 'posts_t/posts_list.html', context)
 
 
-def test(request):
-    return HttpResponse("<h1>Test title</h1>")
+def post_detail(request, book_id):
+    post = get_object_or_404(Post)
+    context = {'post': post}
+    return render(request, "posts_t/post_detail.html", context)
+
+
+def add_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'posts_t/create_post.html', {'form': form})
 
