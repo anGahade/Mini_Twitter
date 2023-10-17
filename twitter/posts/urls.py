@@ -1,11 +1,10 @@
 from django.urls import path
 
-from .views import index, post_detail, add_post
+from .views import post_list, add_post
 
 app_name = "posts"
 urlpatterns = [
-    path('', index, name="index"),
-    path('<str:username>/', index, name="user_posts_list"),
-    path('posts/<int:user_id>', post_detail, name="post_detail"),
-    path('posts/add_post', add_post, name="add_post"),
+    path('', post_list, name="post_list"),
+    path('posts/<str:username>/', post_list, name="user_posts_list"),
+    path('posts/add-post', add_post, name="add_post"),
 ]

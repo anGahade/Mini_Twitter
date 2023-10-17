@@ -5,7 +5,7 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
-def index(request, username=None):
+def post_list(request, username=None):
     if username:
         posts = Post.objects.filter(user__username=username)
         title = f'List of posts by {username}:'
@@ -14,13 +14,7 @@ def index(request, username=None):
         title = 'List of posts:'
 
     context = {'posts': posts, 'title': title}
-    return render(request, 'posts_t/posts_list.html', context)
-
-
-def post_detail(request, book_id):
-    post = get_object_or_404(Post)
-    context = {'post': post}
-    return render(request, "posts_t/post_detail.html", context)
+    return render(request, 'posts/posts_list.html', context)
 
 
 def add_post(request):
@@ -28,8 +22,12 @@ def add_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('post_list')
+            pass
+            # return redirect('post_list')
     else:
         form = PostForm()
-    return render(request, 'posts_t/create_post.html', {'form': form})
+    return render(request, 'post/create_post.html', {'form': form})
+
+
+
 
