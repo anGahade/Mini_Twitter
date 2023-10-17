@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Додати новий пост</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зберегти</button>
+  </form>
+  <a href="{% url 'post_list' %}">Повернутися до списку постів</a>
+{% endblock %}
