@@ -22,11 +22,10 @@ def add_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            pass
-            # return redirect('post_list')
+            return redirect('post_list')
     else:
         form = PostForm()
-    return render(request, 'post/create_post.html', {'form': form})
+    return render(request, 'posts/add_post.html', {'form': form})
 
 
 

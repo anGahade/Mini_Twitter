@@ -4,8 +4,10 @@
 
   <h1 class="mb-4">Головна</h1>
 
-<form class="needs-validation" novalidate action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
+  <div class="d-flex align-items-center mb-4">
+    <p class="mb-1"> Привіт, <b>{{user.username}}</b></p>
+  <a href="{% url 'posts:add_post' %}" class="btn btn-primary btn-sm"> Написати твіт</a>
+  </div>
 
   {% for post in posts %}
   

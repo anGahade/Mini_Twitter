@@ -2,10 +2,10 @@
 
 {% block content %}
   <h2>Додати новий пост</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+    <form class="needs-validation" novalidate action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Зберегти</button>
   </form>
-  <a href="{% url 'post_list' %}">Повернутися до списку постів</a>
+  <a href="{% url 'posts_list' %}">Повернутися до списку постів</a>
 {% endblock %}
