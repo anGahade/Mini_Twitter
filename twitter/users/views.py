@@ -3,14 +3,16 @@ from django.shortcuts import render
 from users.models import User
 
 
-def index(request):
-    users = User.objects.all()
-    context = {'users': users, 'title': 'List of users:'}
+def users_list(request, username=None):
+    if username:
+        users = User.objects.filter(username=username)
+        title = f'Information about {username}:'
+    else:
+        users = User.objects.all()
+        title = 'List of users:'
+    context = {'users': users, 'title': title}
     return render(request, 'users/users_list.html', context)
 
-
-def test(request):
-    return HttpResponse("<h1>Test title</h1>")
 
 
 

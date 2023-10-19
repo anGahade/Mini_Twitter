@@ -5,10 +5,13 @@ from comments.forms import CommentForm
 from comments.models import Comment
 
 
-def comments_list(request, username=None):
+def comments_list(request, username=None, post_id=None):
     if username:
         comments = Comment.objects.filter(user__username=username)
         title = f'List of comments by {username}:'
+    elif post_id:
+        comments = Comment.objects.filter(post__id=post_id)
+        title = f'List of comments to a post {post_id}:'
     else:
         comments = Comment.objects.all()
         title = 'List of comments:'

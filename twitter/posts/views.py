@@ -5,10 +5,13 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
-def post_list(request, username=None):
+def post_list(request, username=None, post_id=None):
     if username:
         posts = Post.objects.filter(user__username=username)
         title = f'List of posts by {username}:'
+    elif post_id:
+        posts = Post.objects.filter(id=post_id)
+        title = f'Post # {post_id}:'
     else:
         posts = Post.objects.all()
         title = 'List of posts:'

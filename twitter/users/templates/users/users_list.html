@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+  <h1>{{ title }}</h1>
+
+  {% for user in users %}
+    <div class="col">
+      <div class="card shadow-sm">
+        {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" class="card-img-top img-fluid" style="height: 350px; width: 350px; object-fit: cover;">
+        {% endif %}
+  <div class="border rounded p-3 mb-4">
+
+    <h3>{{ user.username }}</h3>
+
+    <p>Пошта: {{ user.email }}</p>
+
+    <p>Приеднався до Twitter: {{ user.date_joined }}</p>
+
+    </p>
+
+
+  </div>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}

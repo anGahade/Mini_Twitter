@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import index, test
+from .views import users_list
 
 app_name = "users"
 urlpatterns = [
-    path('', index, name="index"),
-    path('test/', test, name="test"),
-]
+    path('', users_list, name="index"),
+    path('/<str:username>/', users_list, name="users_list"),
+    ]
