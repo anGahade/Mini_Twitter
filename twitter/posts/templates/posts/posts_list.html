@@ -21,8 +21,7 @@
     </p>
 
     <div class="mt-3">
-      <button class="btn btn-outline-primary btn-sm">Edit</button>
-      <button class="btn btn-outline-success btn-sm">Comment</button>
+      <a href="{% url 'comments:add_comment' %}" class="btn btn-outline-info my-2 my-sm-0 ms-auto me-4">Comment</a>
       <button class="btn btn-outline-danger btn-sm">
         <i class="fas fa-heart"></i> Лайк
       </button>
