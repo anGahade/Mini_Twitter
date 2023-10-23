@@ -31,5 +31,9 @@ def add_post(request):
     return render(request, 'posts/add_post.html', {'form': form})
 
 
+def home(request):
+    return render(request, 'posts/home.html')
+
+
 
 

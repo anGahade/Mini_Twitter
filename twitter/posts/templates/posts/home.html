@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Twitter IT Brains</h1>
+        <p class="lead text-body-secondary">Читай саме тут!</p>
+        <div class="mt-4">
+            <a href="{% url 'posts:post_list' %}" class="btn btn-primary">Пости</a>
+            <a href="{% url 'users:users_list' %}" class="btn btn-secondary">Користувачі</a>
+        </div>
+          <div class="mt-4 d-flex justify-content-center">
+            <img style="max-width: 100%; height: auto;" src="https://chakiris.club/uploads/posts/2023-10/thumbs/1696505562_chakiris-club-p-morskoi-peizazh-fentezi-fentezi-instagram-4.jpg" alt="Опис зображення">
+        </div>
+        <p class="lead text-body-secondary mt-3">
+
+            У нашому Twitter ви знайдете широкий спектр тематик та відомих особистостей зі світу технологій. Від глибоких аналізів до гострих новин, від порад для розвитку до цікавих фактів.
+
+            Приєднуйтесь до нашої активної спільноти та отримуйте доступ до свіжих думок, важливих подій і цікавих обговорень. З нашим Twitter ви завжди будете в курсі найсвіжіших подій у світі технологій та зможете долучитися до захоплюючих обмінів інформацією.
+        </p>
+
+      </div>
+    </div>
+</section>
+
+{% endblock %}
