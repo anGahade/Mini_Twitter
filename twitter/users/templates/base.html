@@ -181,8 +181,7 @@
                 {% if user.is_authenticated %}
                 <span class="me-3 text-white">Вітаю, {{ user.username }}</span>
                 {% else %}
-                <a href="{% url 'login' %}" class="btn btn-outline-info my-2 my-sm-0 me-2">Увійти</a>
-                <a href="{% url 'register' %}" class="btn btn-outline-info my-2 my-sm-0">Зареєструватися</a>
+
                 {% endif %}
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
