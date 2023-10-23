@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     # my_apps
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
-    'comments.apps.CommentsConfig'
+    'comments.apps.CommentsConfig',
+    'custom_user',
     ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AUTH_USER_MODEL = 'custom_user.CustomUser'
