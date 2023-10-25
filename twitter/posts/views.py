@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import get_user_model
+
 
 from posts.forms import PostForm
 from posts.models import Post
@@ -33,6 +35,9 @@ def add_post(request):
 
 def home(request):
     return render(request, 'posts/home.html')
+
+
+
 
 
 
