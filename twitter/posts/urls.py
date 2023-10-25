@@ -10,5 +10,5 @@ urlpatterns = [
     path('add-post/', add_post, name="add_post"),
     path('home/', home, name="home"),
     path('post_list', post_list, name="post_list"),
-    path('user/<int:user_id>/posts/', user_posts, name='user_posts')
+    # path('user/<int:user_id>/posts/', user_posts, name='user_posts')
 ]
