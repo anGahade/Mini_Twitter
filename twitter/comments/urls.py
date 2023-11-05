@@ -1,11 +1,11 @@
 from django.urls import path
 
-from .views import comments_list, add_comment
+from .views import CommentListView, CommentCreateView
 
 app_name = "comments"
 urlpatterns = [
-    path('', comments_list, name="comments_list"),
-    path('user/<str:username>/', comments_list, name="user_comments_list"),
-    path('post/<int:post_id>/', comments_list, name="post_comments_list"),
-    path('add-comment/', add_comment, name="add_comment"),
+    path('', CommentListView.as_view(), name="comments_list"),
+    path('user/<str:username>/', CommentListView.as_view(), name="user_comments_list"),
+    path('post/<int:post_id>/', CommentListView.as_view(), name="post_comments_list"),
+    path('add-comment/', CommentCreateView.as_view(), name="add_comment"),
 ]

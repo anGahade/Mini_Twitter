@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <div class="author-info">
+      <div class="d-flex align-items-center">
+        <div class="avatar">
+          <img src="{{ user.profile_picture.url }}" alt="{{ post.user.username }} Avatar" class="rounded-circle">
+        </div>
+        <div class="author-name ml-3">
+          <a href="{% url 'users:users_list' %}">{{ post.user.username }}</a>
+        </div>
+      </div>
+    </div>
+    <p class="lead my-4">{{ post.content }}</p>
+
+    <h2 class="mt-4">Comments:</h2>
+    <div class="comments">
+      {% for comment in post.comment_set.all %}
+        <div class="comment">
+          <div class="comment-header">
+            Comment by: {{ comment.user.username }}
+            <br>
+            Created: {{ comment.created_at }}
+          </div>
+          <div class="comment-body">
+            {{ comment.content }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .comments {
+    list-style: none;
+    padding: 0;
+  }
+
+  .comment {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  .comment-header {
+    font-weight: bold;
+  }
+
+  .comment-body {
+    margin-top: 10px;
+  }
+</style>
+{% endblock %}

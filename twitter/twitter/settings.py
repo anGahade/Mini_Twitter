@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
     'custom_user',
-    ]
+    'debug_toolbar',
+    'django_extensions',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +55,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'twitter.urls'
@@ -84,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mini_twitter_db',
         'USER': 'mini_twitter',
-        'PASSWORD': 'Dasha0806',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -137,4 +144,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'custom_user.CustomUser'
+AUTH_USER_MODEL = 'custom_user.CustomUser'

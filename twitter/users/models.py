@@ -8,7 +8,7 @@ class User(models.Model):
     profile_picture = models.ImageField(upload_to="users/profile_images", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return f'User: {self.username}'
