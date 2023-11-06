@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, get_object_or_404
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 
 from posts.forms import PostForm
@@ -32,26 +32,22 @@ class PostListView(ListView):
         return context
 
 
-# def add_post(request):
-#     if request.method == 'POST':
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('posts:post_list')
-#     else:
-#         form = PostForm()
-#     return render(request, 'posts/add_post.html', {'form': form})
-
-
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'posts/add_post.html'
-    success_url = reverse_lazy('posts:post_list')
+    success_url = 'http://127.0.0.1:8000/post_list'  # Замініть '/success-url/' на реальний URL
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Assign the current user to the post
+        form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('custom_user:login')  # редирект на сторінку логіну
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 
 class PostDetailView(DetailView):
@@ -59,9 +55,21 @@ class PostDetailView(DetailView):
     template_name = 'posts/post_detail.html'
     context_object_name = 'post'
 
+
 class HomeView(TemplateView):
     template_name = 'posts/home.html'
 
+
+class LikePostView(View):
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        if post.likes.filter(id=request.user.id).exists():
+            # Користувач вже лайкнув цей пост, тому видалити лайк
+            post.likes.remove(request.user)
+        else:
+            # Користувач ще не лайкав цей пост, тому додати лайк
+            post.likes.add(request.user)
+        return redirect('posts:post_list')
 
 
 

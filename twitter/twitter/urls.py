@@ -29,6 +29,7 @@ urlpatterns = [
     path('posts/', include("posts.urls")),
     path('comments/', include("comments.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('custom_user/', include('custom_user.urls')),
 ]
 
 if settings.DEBUG:
