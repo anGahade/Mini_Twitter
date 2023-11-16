@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Редагувати пост</h2>
+    <form method="post" action="{% url 'posts:edit_post' post_id=post_id %}" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        <div class="invalid-feedback">
+          Будь ласка, введіть заголовок.
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        <div class="invalid-feedback">
+          Будь ласка, введіть вміст поста.
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Зберегти</button>
+    </form>
+    <a class="btn btn-secondary mt-3" href="{% url 'posts:post_detail' pk=post_id %}">Повернутися до посту</a>
+  </div>
+{% endblock %}

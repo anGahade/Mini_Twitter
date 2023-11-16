@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="display-4">Пости підписок</h1>
+
+    {% if posts %}
+        {% for post in posts %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <!-- Додаткова інформація про пост, якщо необхідно -->
+                    {% with user=post.user %}
+                        <p class="card-text">Автор: <a href="{% url 'custom_user:user_profile' user.username %}">{{ user.username }}</a></p>
+                    {% endwith %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Ви не маєте підписок або користувачі, на яких ви підписані, не мають постів.</p>
+    {% endif %}
+</div>
+{% endblock %}

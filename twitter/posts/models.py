@@ -1,4 +1,5 @@
 from django.db import models
+
 from custom_user.models import CustomUser
 
 
@@ -15,6 +16,9 @@ class Post(models.Model):
 
     def remove_like(self, user):
         Like.objects.filter(user=user, post=self).delete()
+
+    def get_comment_count(self):
+        return self.comments.count()
 
 
 class Like(models.Model):

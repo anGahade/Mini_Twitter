@@ -22,7 +22,10 @@
 
     <div class="mt-3 d-flex align-items-center justify-content-between">
       <a href="{% url 'posts:post_detail' pk=post.pk %}" class="btn btn-outline-info my-2 my-sm-0">View Post</a>
-      <a href="{% url 'comments:add_comment' %}" class="btn btn-outline-info my-2 my-sm-0">Comment</a>
+      <a href="{% url 'comments:comment_list' pk=post.pk %}" class="btn btn-outline-info my-2 my-sm-0">
+      Comments ({{ post.get_comment_count }})
+      </a>
+
       <form method="post" action="{% url 'posts:like_post' pk=post.pk %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger btn-sm like-button">

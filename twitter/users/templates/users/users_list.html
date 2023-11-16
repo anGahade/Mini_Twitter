@@ -9,48 +9,35 @@
       <div class="col-md-4 mb-4">
         <div class="card shadow">
           {% if user.profile_picture %}
-            <img src="{{ user.profile_picture.url }}" class="card-img-top fixed-image" alt="{{ user.username }}">
+            <img src="{{ user.profile_picture.url }}" class="card-img-top fixed-image img-fluid rounded-circle" alt="{{ user.username }}">
           {% endif %}
           <div class="card-body">
             <h3 class="card-title">{{ user.username }}</h3>
             <p class="card-text">Пошта: {{ user.email }}</p>
             <p class="card-text small text-muted">Приєднався до Twitter: {{ user.date_joined }}</p>
           </div>
-          <div class="card-footer">
-            <a href="{% url 'comments:user_comments_list' user.username %}" class="btn btn-custom btn-sm">Коментарі користувача</a>
-            <a href="{% url 'posts:user_posts_list' user.username %}" class="btn btn-custom btn-sm">Пости користувача</a>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="{% url 'comments:user_comments_list' user.username %}" class="btn btn-outline-primary btn-sm">Коментарі</a>
+            <a href="{% url 'posts:user_posts_list' user.username %}" class="btn btn-outline-success btn-sm">Пости</a>
+            <a href="{% url 'custom_user:user_profile' user.username %}" class="btn btn-outline-info btn-sm">Профіль</a>
+
+            {% if user != request.user %}
+                {% if user in request.user.following.all %}
+                    <form method="post" action="{% url 'custom_user:unsubscribe' user.username %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Відписатись</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'custom_user:subscribe' user.username %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-sm">Підписатись</button>
+                    </form>
+                {% endif %}
+            {% endif %}
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
 </div>
-
-<style>
-  .fixed-image {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
-
-  .btn-custom {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .btn-custom:hover {
-    background-color: #0056b3;
-  }
-</style>
-
 {% endblock %}

@@ -11,7 +11,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = UserCreationForm.Meta.fields + ('email', 'age',)
+        fields = UserCreationForm.Meta.fields + ('email', 'age', 'bio',)
+
+    bio = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form_control', 'placeholder': 'Bio'}),
+        required=False
+    )
 
 
 class CustomAuthenticationForm(AuthenticationForm):

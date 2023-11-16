@@ -1,56 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
-    <h1 class="display-4">{{ post.title }}</h1>
-    <div class="author-info">
-      <div class="d-flex align-items-center">
-        <div class="avatar">
-          <img src="{{ user.profile_picture.url }}" alt="{{ post.user.username }} Avatar" class="rounded-circle">
-        </div>
-        <div class="author-name ml-3">
-          <a href="{% url 'users:users_list' %}">{{ post.user.username }}</a>
-        </div>
-      </div>
-    </div>
-    <p class="lead my-4">{{ post.content }}</p>
 
-    <h2 class="mt-4">Comments:</h2>
-    <div class="comments">
-      {% for comment in post.comment_set.all %}
-        <div class="comment">
-          <div class="comment-header">
-            Comment by: {{ comment.user.username }}
-            <br>
-            Created: {{ comment.created_at }}
-          </div>
-          <div class="comment-body">
-            {{ comment.content }}
-          </div>
+<div class="container mt-5">
+
+  <h1>{{ post.title }}</h1>
+
+  <p>Автор: {{ post.user }}</p>
+
+  <p>{{ post.content }}</p>
+
+  <p class="text-muted">Створено: {{ post.created_at }}</p>
+  {% if user == post.user %}
+      <a class="btn btn-primary" href="{% url 'posts:edit_post' post_id=post.pk %}">Редагувати</a>
+      <a class="btn btn-danger" href="{% url 'posts:delete_post' post_id=post.pk %}">Видалити</a>
+    {% endif %}
+
+  <h2>Коментарі:</h2>
+
+  <div class="list-group">
+    {% for comment in post.comments.all %}
+      <div class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Скоментував: {{ comment.user }}</h5>
+          <small>Створено: {{ comment.created_at }}</small>
         </div>
-      {% endfor %}
-    </div>
+        <p class="mb-1">{{ comment.content }}</p>
+      </div>
+    {% endfor %}
   </div>
+
+  <a href="{% url 'comments:add_comment' post_id=post.pk %}" class="btn btn-outline-info my-2 my-sm-0">Додати коментар</a>
+
+
 </div>
 
-<style>
-  .comments {
-    list-style: none;
-    padding: 0;
-  }
-
-  .comment {
-    border: 1px solid #ddd;
-    margin: 10px 0;
-    padding: 10px;
-  }
-
-  .comment-header {
-    font-weight: bold;
-  }
-
-  .comment-body {
-    margin-top: 10px;
-  }
-</style>
 {% endblock %}
