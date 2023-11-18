@@ -4,34 +4,49 @@
 
 <div class="container mt-5">
 
-  <h1>{{ post.title }}</h1>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1>{{ post.title }}</h1>
 
-  <p>Автор: {{ post.user }}</p>
-
-  <p>{{ post.content }}</p>
-
-  <p class="text-muted">Створено: {{ post.created_at }}</p>
-  {% if user == post.user %}
-      <a class="btn btn-primary" href="{% url 'posts:edit_post' post_id=post.pk %}">Редагувати</a>
-      <a class="btn btn-danger" href="{% url 'posts:delete_post' post_id=post.pk %}">Видалити</a>
-    {% endif %}
-
-  <h2>Коментарі:</h2>
-
-  <div class="list-group">
-    {% for comment in post.comments.all %}
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Скоментував: {{ comment.user }}</h5>
-          <small>Створено: {{ comment.created_at }}</small>
-        </div>
-        <p class="mb-1">{{ comment.content }}</p>
-      </div>
-    {% endfor %}
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+      {% endif %}
+    </div>
   </div>
 
-  <a href="{% url 'comments:add_comment' post_id=post.pk %}" class="btn btn-outline-info my-2 my-sm-0">Додати коментар</a>
+  <div class="row mt-3">
+    <div class="col-md-8 offset-md-2">
+      <p>Автор: <a href="{% url 'custom_user:user_profile' username=post.user.username %}">{{ post.user.username }}</a></p>
 
+      <p>{{ post.content }}</p>
+
+      <p class="text-muted">Створено: {{ post.created_at }}</p>
+      {% if user.is_authenticated and user == post.user %}
+        <a class="btn btn-primary" href="{% url 'posts:edit_post' post_id=post.pk %}">Редагувати</a>
+        <a class="btn btn-danger" href="{% url 'posts:delete_post' post_id=post.pk %}">Видалити</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-8 offset-md-2">
+      <h2>Коментарі:</h2>
+
+      <div class="list-group">
+        {% for comment in post.comments.all %}
+          <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Скоментував: <a href="{% url 'custom_user:user_profile' username=comment.user.username %}">{{ comment.user.username }}</a></h5>
+              <small>Створено: {{ comment.created_at }}</small>
+            </div>
+            <p class="mb-1">{{ comment.content }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      <a href="{% url 'comments:add_comment' post_id=post.pk %}" class="btn btn-outline-info my-2 my-sm-0">Додати коментар</a>
+    </div>
+  </div>
 
 </div>
 

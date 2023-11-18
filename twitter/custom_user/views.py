@@ -93,13 +93,17 @@ class RegisterView(CreateView):
     template_name = 'custom_user/registration.html'
 
     def form_valid(self, form):
-        to_return = super().form_valid(form)
-        login(self.request, self.object)
-        return to_return
+        # Перевірка наявності користувача з вказаною електронною адресою
+        email = form.cleaned_data.get('email')
+        existing_user = CustomUser.objects.filter(email=email).first()
 
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
+        if existing_user:
+            form.add_error('email', 'Користувач з такою електронною адресою вже існує.')
+            return self.form_invalid(form)
+
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
 
 
 def login_view(request):

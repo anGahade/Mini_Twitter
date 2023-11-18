@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container mt-5">
     <h2 class="mb-4">Редагувати пост</h2>
-    <form method="post" action="{% url 'posts:edit_post' post_id=post_id %}" class="needs-validation" novalidate>
+    <form method="post" action="{% url 'posts:edit_post' post_id=post_id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
       {% csrf_token %}
       <div class="mb-3">
         {{ form.title.label_tag }}
@@ -17,6 +17,13 @@
         {{ form.content }}
         <div class="invalid-feedback">
           Будь ласка, введіть вміст поста.
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+        <div class="invalid-feedback">
+          Будь ласка, виберіть зображення.
         </div>
       </div>
       <button class="btn btn-primary" type="submit">Зберегти</button>
