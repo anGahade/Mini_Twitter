@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': 'db_mini_twitter',
         'USER': 'mini_twitter',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432'
     }
 }
